@@ -6,7 +6,7 @@ Fue creado utilizando Sass y JavaScript para poder darle la funcionalidad y logr
 Cuenta con datos precargados que fueron creados a través de una API. 
 
 
-Para la visualización y utilización del sistema, hace click en el siguiente link: 
+Para la visualización y utilización del sistema, hace click en el siguiente link: https://gabipedicino.github.io/creador-buscador-empleos/
 
 Autoras ✒️
 
