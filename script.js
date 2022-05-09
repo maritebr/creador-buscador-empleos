@@ -1,3 +1,5 @@
+const search = document.getElementById("input-search");
+
 const openModalEditar = document.getElementById("modal-edit");
 const btnEditar = document.getElementById("btn-edit");
 const idEditar = document.getElementById("idEditar");
@@ -23,7 +25,6 @@ const bgModalEdit = document.getElementById("bgModal-edit")
 
 const URL = "https://62462ba8739ac845918b7f46.mockapi.io/empleos";
 
-//GUARDAR PROPUESTAS
 
 const nuevaPropuesta = () => {
     let arrayTags = []
@@ -58,7 +59,7 @@ const nuevaPropuesta = () => {
 
 btnSaveProposal.addEventListener('click', nuevaPropuesta);
 
-//MODAL EDITAR
+
 const showModalEditar = () => {
     bgModalEdit.classList.add('is-visible');
 }
@@ -67,8 +68,6 @@ const closeModalEditar = () => {
     bgModalEdit.classList.remove('is-visible');
 }
 
-
-//MODAL ELIMINAR
 
 const showModalEliminar = (id) => {
     bgModalDelete.classList.add('is-visible');
@@ -92,8 +91,6 @@ const openModalEliminar =(id)=>{
         closeModalEliminar()
     })
 }
-
-//cerrar modales
 
 closeEditar.addEventListener('click', closeModalEditar);
 closeEliminar.addEventListener('click', closeModalEliminar);
@@ -187,6 +184,48 @@ const renderEmpleos = () => {
     })
     
 }
+
+search.addEventListener("keyup", ()=> {
+
+    fetch(`${URL}`)
+    .then (response => response.json())
+    .then (data => {
+
+        const busqueda = document.getElementById("input-search").value
+        console.log("busqueda", busqueda);
+
+        const puestoFiltrado = data.filter((dato)=>{
+            if (dato.Puesto == busqueda)
+            {
+
+                return cards.innerHTML = 
+                `<div class="addProposal" id="addProposal">
+                        <div class="header-proposal">
+                            <h2>${dato.Puesto}</h2>
+
+                        </div>
+                        <div class="sub-header">
+                            <p class="subtitle">${dato.Empresa}</p>
+                            <button>${dato.createdAt.substring(0,10)}</button>   
+                        </div>
+
+                        <div class="tags">
+                            <button>#${dato.Tags1}</button>
+                            <button>#${dato.Tags2}</button>
+                            <button>#${dato.Tags3}</button>
+                        </div>
+
+                        <div class="icons">
+                            <i class="fa-solid fa-trash"  onclick="showModalEliminar(${dato.id})"></i>
+                            <i class="fa-solid fa-pencil" onclick="openModalEdit(${dato.id})"></i>    
+                        </div>   
+                </div>`
+            }
+        })
+
+    })   
+   
+})
 
 renderEmpleos();
 
